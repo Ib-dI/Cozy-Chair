@@ -14,11 +14,17 @@ const nbFull = document.getElementById('nb-full')
 const prevBtn = document.getElementById('btn-left')
 const nextBtn = document.getElementById('btn-right')
 
+const btnBurger = document.querySelector('.burger')
+const navList = document.querySelector('.nav-list')
+
 const colorChair = [...document.querySelectorAll('.color')]
 let currentIndex = 0
 
 let compteur = 1
 
+btnBurger.addEventListener('click',()=> {
+    navList.classList.toggle('afficher')
+})
 colorChair.forEach(color => {
     color.addEventListener('click', () => {
         colorChair.forEach(item => {
@@ -27,6 +33,7 @@ colorChair.forEach(color => {
         color.classList.add('active-color')
     })
 })
+
 btnPlus.addEventListener('click', ()=>{
     compteur++
     nbChair.innerHTML = compteur
