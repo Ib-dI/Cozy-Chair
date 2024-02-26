@@ -164,6 +164,7 @@ span {
 
 }
 .add {
+    cursor: pointer;
     font-family: inherit;
     color: var(--color-white);
     background-color: var(--color-verderis);
@@ -188,11 +189,15 @@ span {
     border: none;
     width: 20px;
     height: 20px;
-    font-size: 2rem;
+    font-size: 2.4rem;
     font-weight: 600;
-    transform: translateY(-20%);
+    transform: translateY(-30%);
+}
+#moins {
+    transform: translateY(-5px);
 }
 .box-qty p {
+    font-size: 2.2rem;
     font-weight: 600;
 }
 .foot {
@@ -290,6 +295,9 @@ span {
     border: 2px solid var(--color-cool-gray);
     border-radius: 4px;
 }
+.vignette img {
+    cursor: pointer;
+}
 .img-active {
     border: 2px solid var(--color-verderis);
 }
@@ -297,6 +305,7 @@ span {
     display: flex;
     gap: 10px;
 }
+
 #full {
     right: 200px;
     position: absolute;
