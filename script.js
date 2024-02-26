@@ -11,7 +11,22 @@ const btnMoins = document.getElementById('moins')
 const nbChair = document.getElementById('nb-chair')
 const nbFull = document.getElementById('nb-full')
 
+const prevBtn = document.getElementById('btn-left')
+const nextBtn = document.getElementById('btn-right')
+
+const colorChair = [...document.querySelectorAll('.color')]
+let currentIndex = 0
+
 let compteur = 1
+
+colorChair.forEach(color => {
+    color.addEventListener('click', () => {
+        colorChair.forEach(item => {
+            item.classList.remove('active-color')
+        })
+        color.classList.add('active-color')
+    })
+})
 btnPlus.addEventListener('click', ()=>{
     compteur++
     nbChair.innerHTML = compteur
@@ -23,21 +38,9 @@ btnMoins.addEventListener('click', ()=>{
 divVign.forEach(item => {
     item.addEventListener('click', activeImg)
 })
+
+
 changerImages()
-
-// divVign.forEach(item => {
-//     const indexToShow = divVign.findIndex(it => it.classList.contains('img-active'))
-//     console.log(indexToShow)
-//     item.addEventListener('click')
-    
-//     // const  af = indexToShow + 1
-
-//     // af < 10 ? '0' + af : af
-
-//     // nbFull.innerHTML = ` <p id="nb-full">
-//     // ${af} <span class="gray">/ 05</span>`
-// })
-
 
 btnCoeur.addEventListener('click', ()=>{
     const imageCr = btnCoeur.querySelector('img')
@@ -49,26 +52,72 @@ btnCoeur.addEventListener('click', ()=>{
     }
 })
 
+prevBtn.addEventListener('click', ()=>{
+    divVign.forEach(item =>{
+        item.classList.remove(`img-active`)
+    })
+    currentIndex--
+    if (currentIndex < 0) {
+        currentIndex = divVign.length - 1
+    }
+    divVign[currentIndex].classList.add('img-active')
+    afficheNum()
+    changerImgRow()
+
+
+})
+
+nextBtn.addEventListener('click', ()=>{
+    divVign.forEach(item =>{
+        item.classList.remove(`img-active`)
+    })
+    currentIndex++
+    if (currentIndex > divVign.length - 1) {
+        currentIndex = 0
+    }
+    divVign[currentIndex].classList.add('img-active')
+
+    afficheNum()
+    changerImgRow()
+    
+
+})
+
+function afficheNum () {
+    let indexToShow = divVign.findIndex(it => it.classList.contains('img-active')) + 1
+
+    indexToShow = indexToShow < 10 ? '0' + indexToShow : indexToShow
+
+    nbFull.innerHTML = ` <p id="nb-full">
+    ${indexToShow} <span class="gray">/ 05</span>`
+}
+
 function activeImg(e) {
-    e.stopPropagation()
     divVign.forEach((item) => {
         item.classList.remove(`img-active`)
     })
     const target =  e.target
-    target.parentNode.classList.add(`img-active`)
+    if (target.parentNode.classList.contains('vignette')){
+        console.log('oui')
+        target.parentNode.classList.add(`img-active`)
+        currentIndex = divVign.indexOf(target.parentNode)
+    }else {
+        target.classList.add(`img-active`)
+        currentIndex = divVign.indexOf(target)
+    }
     
-    let indexToShow = divVign.findIndex(it => it.classList.contains('img-active')) + 1
-    console.log(indexToShow)
-
-    indexToShow = indexToShow < 10 ? '0' + indexToShow : indexToShow
-
-    console.log(indexToShow)
-
-    nbFull.innerHTML = ` <p id="nb-full">
-    ${indexToShow} <span class="gray">/ 05</span>`
-
+    afficheNum()
 }
+function changerImgRow() {
+    divVign.forEach(it => {
+        const image = it.querySelector('.small');
+        const nomDeImage = image.src.split('/').pop()
+        if (it.classList.contains('img-active')) {
 
+            fullImg.src = `./assets/img/trans/${nomDeImage}`
+        }
+    })
+}
 function changerImages() {
 
     divVign.forEach(item => {
